@@ -7,6 +7,7 @@ class CreateGamesTable < ActiveRecord::Migration[6.0]
       t.decimal     :retail_price
       t.integer     :metacritic_score
       t.integer     :steam_app_id
+      t.integer     :api_id_game      
     end
   end
 end

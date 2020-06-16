@@ -10,27 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_16_154323) do
+ActiveRecord::Schema.define(version: 2020_06_16_150650) do
 
-  create_table "deals", id: :string, force: :cascade do |t|
+  create_table "deals", force: :cascade do |t|
     t.integer "store_id"
     t.integer "game_id"
     t.decimal "sale_price"
-    t.boolean "is_on_sale"
   end
 
-  create_table "games", id: false, force: :cascade do |t|
-    t.integer "id"
+  create_table "games", force: :cascade do |t|
     t.string "title"
     t.datetime "release_date"
     t.decimal "retail_price"
     t.integer "metacritic_score"
     t.integer "steam_app_id"
+    t.integer "api_id_game"
   end
 
-  create_table "stores", id: false, force: :cascade do |t|
-    t.integer "id"
+  create_table "stores", force: :cascade do |t|
     t.string "name"
+    t.integer "api_id_store"
   end
 
 end

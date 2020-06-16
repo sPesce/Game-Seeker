@@ -5,7 +5,6 @@ class Store < ActiveRecord::Base
 
   #all the deals this store currently offers
   def deals
-
   end
 
   ##all the games this store currently has on sale

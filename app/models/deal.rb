@@ -8,3 +8,4 @@ class Deal < ActiveRecord::Base
   end
 
 end
+
