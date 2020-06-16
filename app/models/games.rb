@@ -1,6 +1,7 @@
-class Game
+class Game < ActiveRecord::Base
 
-    attr_accessor :id, :title
+    has_many :deals
+    has_many :stores, through: :deals 
 
     @@all = []
 
@@ -16,5 +17,14 @@ class Game
     def self.all
         @@all
     end
+
+     #all the deals this game is offered 
+     def deals
+
+     end
+ 
+     ##all the stores this game currently is on sale at
+     def stores
+     end
 
 end

@@ -1,6 +1,7 @@
-class Store
+class Store < ActiveRecord::Base
 
-    attr_accessor :id, :name
+    has_many :deals
+    has_many :games, through: :deals 
 
     @@all = []
 

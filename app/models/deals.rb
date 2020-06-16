@@ -1,7 +1,7 @@
-class Deal
+class Deal < ActiveRecord::Base
 
-    attr_accessor :id, :name
-    attr_reader :deal_price
+    belongs_to :game
+    belongs_to :store 
 
     @@all = []
 
@@ -15,6 +15,10 @@ class Deal
 
     def self.all
         @@all
+    end
+
+    #
+    def self.best_deal_rating
     end
 
 end
