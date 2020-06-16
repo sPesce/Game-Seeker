@@ -1,7 +1,7 @@
 class CreateGamesTable < ActiveRecord::Migration[6.0]
   def change
-    create_table do |t|
-      t.integer     :id
+    create_table :games do |t|
+      #t.integer     :id
       t.string      :title
       t.datetime    :release_date
       t.decimal     :retail_price
