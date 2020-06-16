@@ -10,6 +10,7 @@ class Store < ActiveRecord::Base
   ##all the games this store currently has on sale
   def games
   end
-
-
+  
+  #as a user I want to find the cheapest deal through store
+  
 end
