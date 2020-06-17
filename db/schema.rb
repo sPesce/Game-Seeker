@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_16_150650) do
+ActiveRecord::Schema.define(version: 2020_06_17_162101) do
 
   create_table "deals", force: :cascade do |t|
     t.integer "store_id"
     t.integer "game_id"
     t.decimal "sale_price"
+    t.string "api_id_deals"
   end
 
   create_table "games", force: :cascade do |t|
@@ -33,4 +34,3 @@ ActiveRecord::Schema.define(version: 2020_06_16_150650) do
   end
 
 end
-#deals belongs to 
