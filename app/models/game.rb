@@ -9,7 +9,7 @@ class Game < ActiveRecord::Base
    
    #find cheapest deal for this game
    def cheapest_deal
-    self.deals.order(sale_price: :asc).limit(1)
+    self.deals.order(sale_price: :asc).limit(1).first
    end
    
 

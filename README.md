@@ -12,5 +12,5 @@ There is no need for additional software at this time, and everything can be acc
 for you.  Simply run the program (ruby run.rb) in your favorite terminal or code editor to begin!
 
 Any questions or comments or contribution ideas can be forwarded to the project owners at:
-Steve Pesce @ Github ID:
+Steve Pesce @ Github ID:sPesce
 Tien Phan @ Github ID: tienphan1989

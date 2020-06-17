@@ -47,6 +47,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    ruby-progressbar (1.10.1)
     ruby2_keywords (0.0.2)
     sinatra (2.0.8.1)
       mustermann (~> 1.0)
@@ -86,6 +87,7 @@ DEPENDENCIES
   pry
   require_all
   rest-client
+  ruby-progressbar
   sinatra-activerecord
   sqlite3
   tty-prompt

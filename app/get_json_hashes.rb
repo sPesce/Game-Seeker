@@ -1,7 +1,6 @@
   class GetJsonHashes
     
-    URL = 'https://www.cheapshark.com/api/1.0/'
-
+    URL = 'https://www.cheapshark.com/api/1.0/'    
     def self.populate_tables
       populate_from_stores
       populate_from_deals
