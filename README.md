@@ -14,3 +14,6 @@ for you.  Simply run the program (ruby run.rb) in your favorite terminal or code
 Any questions or comments or contribution ideas can be forwarded to the project owners at:
 Steve Pesce @ Github ID:sPesce
 Tien Phan @ Github ID: tienphan1989
+
+This program uses the Cheap Shark api
+[https://apidocs.cheapshark.com/?version=latest]

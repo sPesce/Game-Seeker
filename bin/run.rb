@@ -63,6 +63,13 @@ def get_info_on_game(game,prompt)
 
 end
 
+#---------------
+#TODO: feed deals back into prompt and ask user to select one
+# then once the list is narrowed down to one deal,
+#it should give the option to link the user to deal hyperlink
+#make sure we use https://www.cheapshark.com/redirect?dealID={id}
+#redirect link as per cheapsharks request!
+#--------------
 
 #update_db_prompt(prompt)
 selected_game = select_game_prompt(prompt)
