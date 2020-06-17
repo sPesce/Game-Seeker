@@ -13,4 +13,11 @@ class Store < ActiveRecord::Base
   
   #as a user I want to find the cheapest deal through store
   
+  
+  #TODO make join table for savings, 
+  #retail_price
+  #deal_price
+  #can we join without using primary keys?
+  #or should we add original price to deals table?
+  
 end
