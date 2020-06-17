@@ -33,3 +33,4 @@ ActiveRecord::Schema.define(version: 2020_06_16_150650) do
   end
 
 end
+#deals belongs to 

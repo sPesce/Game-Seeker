@@ -28,4 +28,11 @@ class Deal < ActiveRecord::Base
     deals  
   end
 
+    
+  #TODO make join table for savings, 
+  #retail_price
+  #deal_price
+  #can we join without using primary keys?
+  #or should we add original price to deals table?
+  
 end

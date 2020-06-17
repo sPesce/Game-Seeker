@@ -3,10 +3,7 @@ class Game < ActiveRecord::Base
   has_many :deals
   has_many :stores, through: :deals 
 
-   #all the deals this game is offered 
-   def deals
-    Deal.where("game_id = ?",self.id)
-   end
+
 
    ##all the stores this game currently is on sale at
    def stores
