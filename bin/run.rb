@@ -53,11 +53,13 @@ def get_info_on_game(game,prompt)
         puts "#{game.title} is sold at the following stores:\n\n"
         game.stores.each{|store|puts " - #{store.name}"}        
     when 2
-        puts "The following deals were found for #{game.title}:\n\n"
-        game.deals.each{|deal|puts " - $#{deal.sale_price} (#{deal.store.name})"}        
+        choices = game.deals.map{|deal| choice(" - $#{deal.sale_price} (#{deal.store.name})",deal)}        
+        inp = prompt.select("Select a deal to get hyperlink:",choices)
+        puts "\n#{inp.mk_hyperlink}"
     when 3
         puts "The cheapest deal for #{game.title} currently listed is:"
         puts "\n - #{game.cheapest_deal.sale_price} (#{game.cheapest_deal.store.name})"
+        puts "deal hyperlink: #{game.cheapest_deal.mk_hyperlink}"
     end
     puts ""
 

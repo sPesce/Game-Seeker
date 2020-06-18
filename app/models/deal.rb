@@ -28,6 +28,10 @@ class Deal < ActiveRecord::Base
     deals  
   end
 
+  def mk_hyperlink
+    return "https://www.cheapshark.com/redirect?dealID=#{self.api_id_deals}"
+  end
+
     
   #TODO make join table for savings, 
   #retail_price
