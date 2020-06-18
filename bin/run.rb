@@ -5,6 +5,23 @@ def choice(name,value)
     {name: name, value: value}
 end
 
+def mk_price_range_choices
+    prices =
+    [
+        [45,60],
+        [30,45],
+        [15,30],
+        [10,15],
+        [5,10]
+    ]
+    choices = []
+            #===============>
+    choices                      << [choice("$60 and up",prices[0])]#first choice
+    prices.each{|limits| choices << choice("$#{limits[0]} - $#{limits[1]}",limits)}
+    choices                      << choice("$5 and lower",[0,5])#last choice
+    choices
+end
+
 def exit_option(arr)
     arr << choice("=EXIT=",0)
 end
@@ -18,7 +35,7 @@ end
 
 def mk_game_hash(games)
     g = games.map{|game|choice(game.title,game)}
-    exit_option(g)
+    #exit_option(g)
 end
 
 def mk_game_choices
@@ -29,14 +46,17 @@ def mk_game_choices
     ]
 end
 
-def update_db_prompt(prompt)
-    flag_reset = prompt.yes?("Would you like to update your database?")
-    if flag_reset == 'y'
+def update_db_prompt
+    prompt = TTY::Prompt.new
+    flag_reset = prompt.yes?("Would you like to update your database?")    
+    if flag_reset
         GetJsonHashes.populate_tables
     end
 end
 
-def select_game_prompt(prompt)
+
+def select_game_prompt
+    prompt = TTY::Prompt.new
     inp = prompt.select("Select Game:",mk_letters_choice_hashes)
     game_group = games_starting_with(inp)
     inp = prompt.select("Select Game:",mk_game_hash(game_group))
@@ -46,36 +66,84 @@ def games_starting_with(chars)
     Game.where("substr(title, 1, 1) IN (?)", chars)
 end#---------------------------------------------------------------
 
-def get_info_on_game(game,prompt)
+def get_info_on_game(game)
+    prompt = TTY::Prompt.new
     inp = prompt.select("Options for #{game.title}:",mk_game_choices)
     case inp
     when 1
         puts "#{game.title} is sold at the following stores:\n\n"
-        game.stores.each{|store|puts " - #{store.name}"}        
+        game.stores.each{|store|puts " - #{store.name}"}
+        return prompt.select("Continue?",[choice("Continue",0),choice("Exit",-1)])     
     when 2
         choices = game.deals.map{|deal| choice(" - $#{deal.sale_price} (#{deal.store.name})",deal)}        
         inp = prompt.select("Select a deal to get hyperlink:",choices)
-        puts "\n#{inp.mk_hyperlink}"
+        return prompt.select("deal hyperlink: #{inp.mk_hyperlink}",[choice("Continue",0),choice("Exit",-1)])        
     when 3
         puts "The cheapest deal for #{game.title} currently listed is:"
-        puts "\n - #{game.cheapest_deal.sale_price} (#{game.cheapest_deal.store.name})"
-        puts "deal hyperlink: #{game.cheapest_deal.mk_hyperlink}"
+        #cheapest deal for this game
+        cheapest = game.cheapest_deal
+        puts "\n - #{cheapest.sale_price} (#{cheapest.store.name})"
+        return prompt.select("deal hyperlink: #{cheapest.mk_hyperlink}",[choice("Continue",0),choice("Exit",-1)])    
     end
     puts ""
 
 end
 
-#---------------
-#TODO: feed deals back into prompt and ask user to select one
-# then once the list is narrowed down to one deal,
-#it should give the option to link the user to deal hyperlink
-#make sure we use https://www.cheapshark.com/redirect?dealID={id}
-#redirect link as per cheapsharks request!
-#--------------
+def search_by_prompt
+    prompt = TTY::Prompt.new
+    choices = [choice("Search by Game Title",0),choice("Search by Price Range",1)]
+    inp = prompt.select("Would you like to search deals by game title or price range?")
+    if inp == 0
+        selected_game = select_game_prompt
+        get_info_on_game(selected_game,prompt)
+    else
+        find_cheapest_deals_prompt
+    end
+end
 
-#update_db_prompt(prompt)
-selected_game = select_game_prompt(prompt)
-get_info_on_game(selected_game,prompt)
+
+def find_cheapest_deals_prompt
+    prompt = TTY::Prompt.new
+    choices = mk_price_range_choices
+    inp = prompt.select("Select a price range:",choices)
+    clamped = Deal.clamp_price(inp)
+    if clamped.empty?
+        Puts "\nSorry, no games in that range"
+        return find_cheapest_deals_prompt
+    else
+        deal_choices = clamped.map{|deal| choice("#{deal.game.title} - $#{deal.sale_price}",deal)}
+        inp = prompt.select("Select Deal:",deal_choices)
+        puts""        
+        return prompt.select("deal hyperlink: #{inp.mk_hyperlink}",[choice("Continue",0),choice("Exit",-1)])
+    end
+end
+
+##TODO: ERROR HANDLING FOR NO OPTIONS
+pr = TTY::Prompt.new
+choices = 
+[
+    choice("Update Db",0),
+    choice("Find by Game Title",1),
+    choice("Find by deal price",2),
+    choice("Exit",-1)
+    
+]
+
+#any number != -1 (until exit condition)
+inp = -999
+until (inp == -1) do  
+    inp = pr.select("Choose a Task:",choices)
+    case inp
+    when 0#update
+        update_db_prompt
+    when 1#search by game
+        inp = select_game_prompt
+        inp = get_info_on_game(inp)
+    when 2#search by deal price
+        inp = find_cheapest_deals_prompt
+    end
+end
+
 
 
 
