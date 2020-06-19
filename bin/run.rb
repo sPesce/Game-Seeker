@@ -4,7 +4,8 @@ prompt = TTY::Prompt.new
 def choice(name,value)
     {name: name, value: value}
 end
-
+#helper for find_cheapest_deal
+#makes the choice array
 def mk_price_range_choices
     prices =
     [
@@ -21,10 +22,16 @@ def mk_price_range_choices
     choices                      << choice("$5 and lower",[0,5])#last choice
     choices
 end
-
-def exit_option(arr)
-    arr << choice("=EXIT=",0)
+#helper for get_info_on_game
+#makes the choice array
+def mk_game_choices
+    [
+        choice("Show stores",1),
+        choice("Show all deals",2),
+        choice("Show cheapest deal",3)
+    ]
 end
+
 def mk_letters_choice_hashes    
     choice_array = ["A-D","E-H","I-L","M-P","Q-T","U-Z"]    
     x = choice_array.map do |c|
@@ -38,18 +45,11 @@ def mk_game_hash(games)
     #exit_option(g)
 end
 
-def mk_game_choices
-    [
-        choice("Show stores",1),
-        choice("Show all deals",2),
-        choice("Show cheapest deal",3)
-    ]
-end
-
+#update database?
 def update_db_prompt
-    prompt = TTY::Prompt.new
+    prompt = TTY::Prompt.new#
     flag_reset = prompt.yes?("Would you like to update your database?")    
-    if flag_reset
+    if flag_reset#fetch data from API if true
         GetJsonHashes.populate_tables
     end
 end
