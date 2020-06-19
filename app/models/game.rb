@@ -7,4 +7,8 @@ class Game < ActiveRecord::Base
    def cheapest_deal
     self.deals.order(sale_price: :asc).limit(1).first
    end
+
+  def self.starting_with(chars)
+    self.where("substr(title, 1, 1) IN (?)", chars)
+  end
 end

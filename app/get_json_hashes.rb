@@ -7,10 +7,14 @@
     end
 
     private#-----------------------------------------------    
-    def self.populate_from_stores      
+    def self.populate_from_stores  
       store_hashes = get_json_hash("stores")
+      system "clear"
+      bar = TTY::ProgressBar.new("downloading [:bar]", total: store_hashes.length)
   
       store_hashes.each do |s|
+
+        bar.advance(1)
         store_params = 
         {
           api_id_store: s['storeID'],
@@ -20,7 +24,8 @@
         if store == nil
           store = Store.create(store_params)
         end        
-      end      
+      end
+      system "clear"      
     end
 
     def self.populate_from_deals     

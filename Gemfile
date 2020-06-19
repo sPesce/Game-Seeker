@@ -8,5 +8,5 @@ gem "require_all"
 gem "rest-client"
 gem "json"
 gem 'tty-prompt'
-gem 'ruby-progressbar'
+gem 'tty-progressbar'
 gem 'tty-link'
