@@ -2,18 +2,24 @@
     
     URL = 'https://www.cheapshark.com/api/1.0/'    
     def self.populate_tables
+      #there are two json pages for 3 tables
+      #deals populates both game and deal
+      #stores populates stores
       populate_from_stores
       populate_from_deals
     end
 
-    private#-----------------------------------------------    
+    private#----------------------------------------------- 
+       
     def self.populate_from_stores  
       store_hashes = get_json_hash("stores")
       system "clear"
       bar = TTY::ProgressBar.new("downloading [:bar]", total: store_hashes.length)
   
       store_hashes.each do |s|
-
+        #partially simulate large data set
+        #i just wanted to use the progress bar
+        sleep(0.1)
         bar.advance(1)
         store_params = 
         {
@@ -35,7 +41,8 @@
         #deal store_id        
         game_params = json_to_game_params(r)
         deal_params = json_to_deal_params(r)
-        
+            #update if has new price
+            #create if nil....
         deals_sale_price = r['salePrice']          
         game = Game.find_by(api_id_game: r['gameID'])
         if game == nil
@@ -43,7 +50,8 @@
         elsif game.retail_price != r['normalPrice']  
           game.retail_price = r['normalPrice']
           game.save
-        end
+        end 
+            #...and do the same with deals
         deal = Deal.find_by(api_id_deals: r['dealID'])
         if deal == nil
           deal = Deal.create(deal_params)
@@ -58,7 +66,7 @@
       result = RestClient.get("#{URL}#{page}")
       return JSON.parse(result)
     end
-
+    #hashes used to make rows in DB
     def self.json_to_game_params(j_hash)      
       {
         title:            j_hash['title'],
