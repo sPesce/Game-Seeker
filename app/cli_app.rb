@@ -142,15 +142,4 @@ class CliApp
           @menu_prompt = PROMPT.select("deal hyperlink: #{cheapest.mk_hyperlink}",[choice("Continue",0),choice("Exit",-1)])    
       end
   end
-    #   #UNUSED/OLD
-    #   def search_by_prompt
-    #       choices = [choice("Search by Game Title",0),choice("Search by Price Range",1)]
-    #       inp = PROMPT.select("Would you like to search deals by game title or price range?")
-    #       if inp == 0
-    #           selected_game = select_game_prompt
-    #           get_info_on_game(selected_game,PROMPT)
-    #       else
-    #           deals_prompt
-    #       end
-    #   end
 end
