@@ -22,17 +22,5 @@ This program uses the Cheap Shark api<br/>
 
 ## Author
 
-👨‍💻 **Tien Phan**
+👨‍💻 **Tien Phan & Steve Pesce**
 
-* Website: https://www.medicine2code.com
-* Github: [@TienPhanDev](https://github.com/TienPhanDev)
-* LinkedIn: [@https:\/\/www.linkedin.com\/in\/tien-phan-DC\/](https://linkedin.com/in/https:\/\/www.linkedin.com\/in\/tien-phan-DC\/)
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
-## 📝 License
-
-Copyright © 2020 [Tien Phan](https://github.com/TienPhanDev).<br />
-This project is [MIT](https://choosealicense.com/licenses/mit/) licensed.
